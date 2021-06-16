@@ -17,9 +17,10 @@ export const HomeScreen = (props: IProps) => {
     return (
         <RootView>
             <Text>RNPlayground</Text>
-
             <Button title={"Details"}
                     onPress={() => navigateTo("Details")}/>
+            <Button title={"Camera"}
+                    onPress={() => navigateTo("Camera")}/>
         </RootView>
     )
 }
