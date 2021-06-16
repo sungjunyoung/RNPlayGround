@@ -1,7 +1,7 @@
 import {Text, StyleSheet, View, TouchableOpacity} from "react-native"
 import {StackNavigationProp} from "@react-navigation/stack";
 import styled from "styled-components/native";
-import React from "react";
+import React, {useRef} from "react";
 import {RNCamera} from "react-native-camera";
 
 interface IProps {
@@ -9,16 +9,20 @@ interface IProps {
 }
 
 export const CameraScreen = (props: IProps) => {
+    const camera = useRef<RNCamera>(null)
+
     const takePicture = async () => {
-        const options = {quality: 0.5, base64: true};
-        const data = await this.camera.takePictureAsync(options);
-        console.log(data.uri)
+        if (camera.current) {
+            const options = {quality: 0.5, base64: true};
+            const data = await camera.current.takePictureAsync(options);
+            console.log(data.uri)
+        }
     }
 
     return (
         <RootView>
             <RNCamera
-                ref={ref => this.camera = ref}
+                ref={camera}
                 style={styles.preview}
                 type={RNCamera.Constants.Type.back}
                 flashMode={RNCamera.Constants.FlashMode.on}
